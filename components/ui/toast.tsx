@@ -1,5 +1,5 @@
 import * as React from "react"
-import * as ToastPrimitives from "@radix-ui/react-toast"
+import * as ToastPrimitives from "@radix-ui/react-toast/dist"
 import { VariantProps, cva } from "class-variance-authority"
 import { X } from "lucide-react"
 

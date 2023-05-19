@@ -7,9 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "add-ui": "pnpm dlx shadcn-ui add --"
+    "add-ui": "pnpm dlx shadcn-ui add --",
+    "prisma": "pnpm exec prisma --",
+    "prisma:migrate": "pnpm prisma migrate dev --name",
+    "supabase": "pnpm exec supabase --",
+    "supabase:gen": "env-cmd -x supabase gen types typescript --db-url $DATABASE_URL --schema=public > supabase/types/database_types.ts --"
   },
   "dependencies": {
+    "@prisma/client": "^4.14.1",
     "@radix-ui/react-accordion": "^1.1.1",
     "@radix-ui/react-alert-dialog": "^1.0.3",
     "@radix-ui/react-aspect-ratio": "^1.0.2",
@@ -36,6 +41,10 @@
     "@radix-ui/react-toast": "^1.1.3",
     "@radix-ui/react-toggle": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.5",
+    "@supabase/auth-helpers-nextjs": "^0.6.1",
+    "@supabase/auth-helpers-react": "^0.3.1",
+    "@supabase/auth-ui-react": "^0.4.2",
+    "@supabase/supabase-js": "^2.22.0",
     "@types/node": "20.2.1",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
@@ -56,5 +65,11 @@
     "tailwindcss": "3.3.2",
     "tailwindcss-animate": "^1.0.5",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "prisma": "^4.14.1",
+    "supabase": "^1.61.5",
+    "ts-node": "^10.9.1"
   }
 }
