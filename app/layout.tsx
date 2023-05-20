@@ -1,9 +1,10 @@
-// import SupabaseProvider from "@/app/__comp/supabase-provider";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import { PropsWithChildren } from "react";
 import { supabaseRSC } from "@/collection/supabase";
 import SupabaseProvider from "./__comp/supabase-provider";
+import GlobalNavigation from "./__comp/navigation";
+import Progressbar from "./__comp/progress-bar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,8 +24,10 @@ const RootLayout = async ({ children }: PropsWithChildren) => {
     <html lang="en">
       <body className={poppins.className}>
         <SupabaseProvider serverSession={session.data.session}>
+          <GlobalNavigation />
           {children}
         </SupabaseProvider>
+        <Progressbar />
       </body>
     </html>
   );

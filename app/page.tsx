@@ -12,7 +12,7 @@ const Home = async () => {
     redirect("/login");
   }
 
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("Profile")
     .select("*")
     .eq("id", session.user.id)

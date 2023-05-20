@@ -38,7 +38,12 @@ const ProfilePage = async ({
     return notFound();
   }
 
-  return <ProfileForm profile={data} />;
+  return (
+    <section className="max-w-lg mx-auto">
+      <h3 className="text-2xl font-semibold">Welcome, {data.firstName || data.lastName || data.username}</h3>
+      <ProfileForm profile={data} />
+    </section>
+  );
 };
 
 export default ProfilePage;

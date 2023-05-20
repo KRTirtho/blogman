@@ -9,6 +9,7 @@ import { inputClasses } from "@/components/ui/input";
 import { buttonVariants } from "@/components/ui/button";
 import { labelVariants } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
+import Logo from "@/components/logo";
 
 const LoginPage = () => {
   const supabase = useSupabase();
@@ -24,15 +25,7 @@ const LoginPage = () => {
   return (
     <Card className="max-w-md w-full p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
       <h3 className="text-2xl font-medium mb-4">
-        Get started on{" "}
-        <div
-          className="text-accent bg-primary px-4 inline-block rounded"
-          style={{ transform: "skew(-20deg)" }}
-        >
-          <span className="inline-block" style={{ transform: "skew(20deg)" }}>
-            Blogman
-          </span>
-        </div>
+        Get started on <Logo />
       </h3>
       <Auth
         supabaseClient={supabase}
