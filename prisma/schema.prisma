@@ -13,10 +13,10 @@ datasource db {
 // -------------------------- Public --------------------------------
 model Profile {
   id        String   @id @db.Uuid
-  firstName String   @db.VarChar(100)
-  lastName  String   @db.VarChar(100)
-  username  String   @unique @db.VarChar(100)
-  bio       String   @db.Text
+  firstName String?   @db.VarChar(100)
+  lastName  String?   @db.VarChar(100)
+  username  String?   @unique @db.VarChar(100)
+  bio       String?   @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
