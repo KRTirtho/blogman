@@ -11,7 +11,9 @@
     "prisma": "pnpm exec prisma --",
     "prisma:migrate": "pnpm prisma migrate dev --name",
     "supabase": "pnpm exec supabase --",
-    "supabase:gen": "env-cmd -x supabase gen types typescript --db-url $DATABASE_URL --schema=public > supabase/types/database_types.ts --"
+    "supabase:gen": "env-cmd -x supabase gen types typescript --db-url $DATABASE_URL --schema=public > supabase/types/database_types.ts --",
+    "supabase:diff": "npx supabase db diff --debug -f",
+    "supabase:reset": "npx supabase db reset"
   },
   "dependencies": {
     "@prisma/client": "^4.14.1",
