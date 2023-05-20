@@ -12,6 +12,16 @@ const Home = async () => {
     redirect("/login");
   }
 
+  const { data, error } = await supabase
+    .from("Profile")
+    .select("*")
+    .eq("id", session.user.id)
+    .single();
+  
+  if (!data?.username) {
+    redirect("/new/profile");
+  }
+
   return <main>You are logged in!</main>;
 };
 
