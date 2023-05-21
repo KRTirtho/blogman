@@ -8,17 +8,13 @@ const Home = async () => {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session) {
-    redirect("/login");
-  }
-
   const { data } = await supabase
     .from("Profile")
     .select("*")
-    .eq("id", session.user.id)
+    .eq("id", session?.user.id)
     .single();
-  
-  if (!data?.username) {
+
+  if (session && !data?.username) {
     redirect("/new/profile");
   }
 

@@ -5,6 +5,7 @@ import { supabaseRSC } from "@/collection/supabase";
 import SupabaseProvider from "./__comp/supabase-provider";
 import GlobalNavigation from "./__comp/navigation";
 import Progressbar from "./__comp/progress-bar";
+import AppGuard from "./__comp/guard";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,8 +25,10 @@ const RootLayout = async ({ children }: PropsWithChildren) => {
     <html lang="en">
       <body className={poppins.className}>
         <SupabaseProvider serverSession={session.data.session}>
-          <GlobalNavigation />
-          {children}
+          <AppGuard>
+            <GlobalNavigation />
+            {children}
+          </AppGuard>
         </SupabaseProvider>
         <Progressbar />
       </body>

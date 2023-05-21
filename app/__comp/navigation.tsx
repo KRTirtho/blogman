@@ -1,7 +1,9 @@
 import { supabaseRSC } from "@/collection/supabase";
 import Logo from "@/components/logo";
 import Link from "next/link";
-import { User2 } from "lucide-react";
+import { Pencil, User2 } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import HideOn from "@/components/hider";
 
 const GlobalNavigation = async () => {
   const supabase = supabaseRSC();
@@ -16,16 +18,28 @@ const GlobalNavigation = async () => {
     .single();
 
   return (
-    <nav className="flex justify-between px-6 py-2">
+    <nav className="flex justify-between items-center px-6 py-2">
       <Link href="/">
         <Logo size="large" />
       </Link>
 
-      {data?.username && (
-        <Link href={`/${data?.username}/profile`}>
-          <User2 />
-        </Link>
-      )}
+      <div className="flex gap-2 items-center justify-end">
+        <HideOn paths={["/create"]}>
+          <Link
+            href="/create"
+            className={`flex gap-1 ${buttonVariants({ size: "sm" })}`}
+          >
+            <Pencil size="18" />
+            Destroy Literacy
+          </Link>
+        </HideOn>
+
+        {data?.username && (
+          <Link href={`/${data?.username}/profile`}>
+            <User2 />
+          </Link>
+        )}
+      </div>
     </nav>
   );
 };
