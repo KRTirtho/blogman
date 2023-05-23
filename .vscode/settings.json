@@ -1,5 +1,10 @@
 {
   "cSpell.words": [
     "Supa"
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    ":\\s*?[\"'`]([^\"'`]*).*?,",
+    "[\"'`]([^\"'`]*).*?[\"'`]",
+    "cva\\(([^)]*)\\)",
   ]
 }

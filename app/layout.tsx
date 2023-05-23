@@ -23,11 +23,11 @@ const RootLayout = async ({ children }: PropsWithChildren) => {
 
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <body>
         <SupabaseProvider serverSession={session.data.session}>
           <AppGuard>
             <GlobalNavigation />
-            {children}
+            <main className="p-2 md:px-6 md:py-4">{children}</main>
           </AppGuard>
         </SupabaseProvider>
         <Progressbar />

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useId } from "react";
 import { Label } from "../ui/label";
 import { useFormContext } from "react-hook-form";
 import { Textarea, TextareaProps } from "../ui/textarea";
@@ -8,13 +8,17 @@ interface FormTextareaProps extends TextareaProps {
   name: string;
 }
 
-const FormTextarea: FC<FormTextareaProps> = (props) => {
+const FormTextarea: FC<FormTextareaProps> = ({ label, ...props }) => {
   const formContext = useFormContext();
+
+  const rid = useId();
+
+  const id = props.id ?? rid;
 
   return (
     <div className="space-y-2">
-      <Label htmlFor={props.name}>{props.label}</Label>
-      <Textarea {...props} {...formContext.register(props.name)} />
+      <Label htmlFor={id}>{label}</Label>
+      <Textarea {...props} {...formContext.register(props.name)} id={id} />
       {formContext.formState.errors[props.name] && (
         <span className="text-destructive text-sm">
           {formContext.formState.errors[props.name]?.message?.toString()}
