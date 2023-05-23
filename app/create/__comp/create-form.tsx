@@ -8,6 +8,7 @@ import { useSupabase } from "@/utils/hooks/useSupabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUser } from "@supabase/auth-helpers-react";
 import { Rocket } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -16,9 +17,11 @@ const CreatePostFormSchema = z.object({
   content: z.string().min(500),
 });
 
-const CreatePostForm = () => {
+const CreatePostForm = ({ username }: { username: string }) => {
   const user = useUser();
   const supabase = useSupabase();
+  const router = useRouter();
+
   const formContext = useForm({
     defaultValues: {
       title: "",
@@ -33,19 +36,21 @@ const CreatePostForm = () => {
       className="flex flex-col gap-6"
       formContext={formContext}
       onSubmit={formContext.handleSubmit(async (data) => {
-        console.log('formContext.formState.isValid:', formContext.formState.isValid)
-        console.log('user:', user)
-        if (!formContext.formState.isValid || !user) return;
-        await supabase.from("Post").insert({
-          authId: user.id,
-          title: data.title,
-          content: data.content,
-          slug:
+        if (!user) return;
+        try {
+          const slug =
             data.title.toLowerCase().replace(/\s/g, "-") +
             "-" +
-            Date.now() / 1000,
-        });
-        formContext.reset();
+            Math.floor(Date.now() / 1000);
+          await supabase.from("Post").insert({
+            authId: user.id,
+            title: data.title,
+            content: data.content,
+            slug,
+          });
+          formContext.reset();
+          router.push(`/${username}/${slug}`);
+        } catch (error) {}
       })}
     >
       <FormField name="title" label="Title" />

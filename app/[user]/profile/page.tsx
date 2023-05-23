@@ -20,7 +20,7 @@ const ProfilePage = async ({
       .eq("id", userData?.id)
       .single();
 
-    if (data) {
+    if (data?.username) {
       return redirect(`/${data.username}/profile`);
     } else if (error) {
       return notFound();

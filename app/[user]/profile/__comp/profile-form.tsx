@@ -19,7 +19,14 @@ interface ProfileFormProps {
 }
 
 const profileFormSchema = z.object({
-  username: z.string().min(3).max(100),
+  username: z
+    .string()
+    .min(3)
+    .max(100)
+    .regex(
+      /^[a-z0-9_-]+$/,
+      "Invalid username. Only (a-z), (0-9), (_), and (-) are allowed."
+    ),
   firstName: z.string().max(100).optional(),
   lastName: z.string().max(100).optional(),
   bio: z.string().optional(),
@@ -31,7 +38,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ isNew, profile }) => {
 
   const formContext = useForm({
     defaultValues: {
-      username: profile?.username,
+      ...(isNew ? { username: profile?.username } : {}),
       firstName: profile?.firstName,
       lastName: profile?.lastName,
       bio: profile?.bio,
@@ -46,6 +53,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ isNew, profile }) => {
       className="flex flex-col gap-4 max-w-xl mx-auto mt-5"
       formContext={formContext}
       onSubmit={formContext.handleSubmit(async (data) => {
+        if (!formContext.formState.isValid) return;
         const query = supabase.from("Profile").update(data);
         if (isNew) {
           await query.eq("id", user?.id);
@@ -56,13 +64,14 @@ const ProfileForm: FC<ProfileFormProps> = ({ isNew, profile }) => {
         }
       })}
     >
-      <FormField
-        type="text"
-        name="username"
-        label="User Name"
-        placeholder="Your user name"
-      />
-
+      {isNew && (
+        <FormField
+          type="text"
+          name="username"
+          label="User Name"
+          placeholder="Your user name"
+        />
+      )}
       <div className="flex gap-2">
         <FormField
           type="text"

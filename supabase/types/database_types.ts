@@ -69,7 +69,7 @@ export interface Database {
           authId: string
           content: string
           createdAt?: string
-          id: string
+          id?: string
           slug: string
           title: string
           updatedAt?: string
@@ -122,7 +122,7 @@ export interface Database {
         }
         Insert: {
           createdAt?: string
-          id: string
+          id?: string
           name: string
           updatedAt?: string
         }
