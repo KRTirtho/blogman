@@ -8,7 +8,7 @@ export class CreateProfileOnSignupFunctionSeed extends SeedOperation {
         insert into public."Profile"(id)
           values (new.id);
         return new;
-        `
+        `,
     );
 
     await this.client.$executeRawUnsafe(sql);
