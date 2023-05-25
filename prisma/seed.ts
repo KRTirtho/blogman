@@ -2,8 +2,12 @@ import { TriggerSeeds } from "./seeds/triggers";
 import { SeedOperation } from "@/utils/dbms/seed-operation";
 import { PrismaClient } from "@prisma/client";
 import { SingleBar, Presets } from "cli-progress";
+import { FunctionSeeds } from "./seeds/functions";
 
-export const Seeds: (typeof SeedOperation)[] = [...TriggerSeeds];
+export const Seeds: (typeof SeedOperation)[] = [
+  ...FunctionSeeds,
+  ...TriggerSeeds,
+];
 
 const prisma = new PrismaClient();
 async function seed() {
