@@ -2,15 +2,27 @@ import { SeedOperation } from "@/utils/dbms/seed-operation";
 
 export class CreateProfileOnSignupTriggerSeed extends SeedOperation {
   async run(): Promise<void> {
-    const sql = this.createTrigger({
-      name: "create_profile_on_signup_trigger",
-      table: "auth.users",
-      execution: "create_profile_on_signup()",
-      executionOrder: "after",
-      operation: "insert",
-      operationType: "for each row",
-      executorType: "function",
-    });
-    await this.client.$executeRawUnsafe(sql);
+    await this.client.$executeRaw`
+      CREATE OR REPLACE FUNCTION public.create_profile_on_signup() RETURNS TRIGGER AS 
+      $$ 
+      BEGIN
+        INSERT INTO public."Profile"(id)
+          VALUES (NEW.id);
+        RETURN NEW;
+      END;
+      $$
+      LANGUAGE plpgsql
+      SECURITY DEFINER
+      SET search_path = public;
+    `;
+
+    await this.client.$executeRaw`
+      CREATE OR REPLACE TRIGGER create_profile_on_signup_trigger 
+        AFTER INSERT
+        ON auth.users
+        FOR EACH ROW
+      EXECUTE
+        PROCEDURE public.create_profile_on_signup();
+    `;
   }
 }
