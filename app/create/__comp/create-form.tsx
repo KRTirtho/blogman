@@ -11,6 +11,7 @@ import { Rocket } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { nanoid } from "nanoid";
 
 const CreatePostFormSchema = z.object({
   title: z.string().min(10).max(300),
@@ -38,10 +39,9 @@ const CreatePostForm = ({ username }: { username: string }) => {
       onSubmit={formContext.handleSubmit(async (data) => {
         if (!user) return;
         try {
-          const slug =
-            data.title.toLowerCase().replace(/\s/g, "-") +
-            "-" +
-            Math.floor(Date.now() / 1000);
+          const slug = `${data.title
+            .toLowerCase()
+            .replace(/\s/g, "-")}-${nanoid()}`;
           await supabase.from("Post").insert({
             authId: user.id,
             title: data.title,
