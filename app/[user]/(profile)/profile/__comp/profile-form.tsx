@@ -72,7 +72,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ isNew, profile }) => {
           placeholder="Your user name"
         />
       )}
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-2">
         <FormField
           type="text"
           name="firstName"

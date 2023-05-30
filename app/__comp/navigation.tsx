@@ -30,7 +30,7 @@ const GlobalNavigation = async () => {
             className={`flex gap-1 ${buttonVariants({ size: "sm" })}`}
           >
             <Pencil size="18" />
-            Destroy Literacy
+            <span className="hidden sm:block">Destroy Literacy</span>
           </Link>
         </HideOn>
 
