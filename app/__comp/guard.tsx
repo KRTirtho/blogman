@@ -22,6 +22,13 @@ const AppGuard: FC<PropsWithChildren> = ({ children }) => {
     }
   }, [pathname, router, session]);
 
+  if (
+    (!session && !anonWhitelist.includes(pathname)) ||
+    (session && loggedInBlacklist.includes(pathname))
+  ) {
+    return <></>;
+  }
+
   return <>{children}</>;
 };
 

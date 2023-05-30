@@ -24,7 +24,7 @@ const GlobalNavigation = async () => {
       </Link>
 
       <div className="flex gap-2 items-center justify-end">
-        <HideOn paths={["/create"]}>
+        <HideOn paths={["/create"]} auth="anon">
           <Link
             href="/create"
             className={`flex gap-1 ${buttonVariants({ size: "sm" })}`}
